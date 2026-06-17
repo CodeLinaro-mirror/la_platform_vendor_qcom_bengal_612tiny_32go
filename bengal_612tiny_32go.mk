@@ -38,6 +38,12 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 # Enable Fuse Passthrough
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
 
+#Enable low RAM optimizations
+TARGET_QCOM_IOT_LOW_RAM := true
+TARGET_HAS_QTI_OPTIMIZATIONS := true
+TARGET_HAS_LOW_RAM := true
+TARGET_TELEPHONY_DATA_ONLY := true
+
 SHIPPING_API_LEVEL := 36
 PRODUCT_SHIPPING_API_LEVEL := 36
 
