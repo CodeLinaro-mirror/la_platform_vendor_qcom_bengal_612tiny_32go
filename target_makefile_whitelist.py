@@ -1,4 +1,3 @@
-# Changes from Qualcomm Technologies, Inc. are provided under the following license:
 # Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 # SPDX-License-Identifier: BSD-3-Clause-Clear
 
@@ -99,7 +98,7 @@ VENDOR_FOREACH_WHITELIST = {
 
 VENDOR_MACRO_WHITELIST = {
     "device/qcom/sepolicy_vndr/SEPolicy.mk",
-    "device/qcom/wlan/bengal/BoardConfigWlan.mk",
+    "device/qcom/wlan/bengal_32go/BoardConfigWlan.mk",
     "hardware/qcom/display/config/display-product.mk",
     "hardware/qcom/media/product.mk",
     "vendor/qcom/opensource/audio-hal/primary-hal/configs/bengal/bengal.mk",

@@ -24,26 +24,18 @@ else
 TARGET_EMMC_BOOTLOADER := $(TARGET_BOARD_UNSIGNED_ABL_DIR)/unsigned_abl.elf
 SIGN_ABL := $(PRODUCT_OUT)/abl.elf
 
-SECIMAGE_BASE := vendor/qcom/proprietary/sectools
-SECTOOLS_SECURITY_PROFILE := $(SECIMAGE_BASE)/config/integration/secimagev3.xml
-SIGN_ID := abl
-INSTALL_FILE_NAME := abl.elf
-
+SECTOOLSV2_BIN := $(QCPATH)/sectools/Linux/sectools
 define sec-image-generate
-        echo "Generating signed appsbl using secimage v1 tool"
-        rm -rf $(PRODUCT_OUT)/signed
-        rm -rf $(PRODUCT_OUT)/signed_ecc
-        SECIMAGE_LOCAL_DIR=$(SECIMAGE_BASE) USES_SEC_POLICY_MULTIPLE_DEFAULT_SIGN=$(USES_SEC_POLICY_MULTIPLE_DEFAULT_SIGN) \
-        USES_SEC_POLICY_DEFAULT_SUBFOLDER_SIGN=$(USES_SEC_POLICY_DEFAULT_SUBFOLDER_SIGN) \
-        USES_SEC_POLICY_INTEGRITY_CHECK=$(USES_SEC_POLICY_INTEGRITY_CHECK) python $(SECIMAGE_BASE)/sectools_builder.py \
-                -i $(TARGET_EMMC_BOOTLOADER) \
-                -t $(PRODUCT_OUT)/signed \
-                -g $(SIGN_ID) \
-                --config=$(SECTOOLS_SECURITY_PROFILE) \
-                --install_file_name=$(INSTALL_FILE_NAME) \
-                --install_base_dir=$(PRODUCT_OUT) \
-                > $(PRODUCT_OUT)/secimage.log 2>&1
-        echo "Completed secimage v1 signed appsbl (ABL) (logs in $(PRODUCT_OUT)/secimage.log)"
+        echo "Generating signed appsbl using secimagev2 tool"
+        rm -rf $(PRODUCT_OUT)/abl.elf
+        ( $(SECTOOLSV2_BIN) secure-image $(TARGET_EMMC_BOOTLOADER) \
+                --outfile $(PRODUCT_OUT)/abl.elf \
+                --image-id ABL \
+                --security-profile $(SECTOOLS_SECURITY_PROFILE) \
+                --sign \
+                --signing-mode TEST \
+                > $(PRODUCT_OUT)/secimage.log 2>&1 )
+        echo "Completed secimagev2 signed appsbl (ABL) (logs in $(PRODUCT_OUT)/secimage.log)"
 endef
 
 $(SIGN_ABL): $(TARGET_EMMC_BOOTLOADER)
@@ -134,7 +126,7 @@ endif
 # wlan specific
 #----------------------------------------------------------------------
 ifeq ($(strip $(BOARD_HAS_QCOM_WLAN)),true)
-include device/qcom/wlan/bengal/AndroidBoardWlan.mk
+include device/qcom/wlan/bengal_32go/AndroidBoardWlan.mk
 endif
 
 #----------------------------------------------------------------------
