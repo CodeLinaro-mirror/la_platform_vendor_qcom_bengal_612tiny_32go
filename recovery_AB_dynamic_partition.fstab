@@ -42,4 +42,4 @@ product                                    /product        ext4    ro,barrier=1,
 /dev/block/bootdevice/by-name/metadata     /metadata       f2fs    noatime,nosuid,nodev,discard                               wait,check,formattable,wrappedkey,first_stage_mount
 /dev/block/mmcblk1p1                       /sdcard         vfat    nosuid,nodev                                               wait
 /dev/block/bootdevice/by-name/boot         /boot           emmc    defaults                                                   defaults
-/dev/block/bootdevice/by-name/misc         /misc           emmc    defaults                                                   defaults
+/dev/block/by-name/misc         /misc           emmc    defaults                                                   defaults
