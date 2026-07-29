@@ -6,11 +6,11 @@ TARGET_BOARD_PLATFORM := bengal
 TARGET_BOARD_SUFFIX := _612tiny_32go
 TARGET_BOOTLOADER_BOARD_NAME := bengal
 
-TARGET_ARCH := arm64
+TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv8-a
-TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_VARIANT := cortex-a73
 
 #Generate DTBO image
 BOARD_KERNEL_SEPARATED_DTBO := false
@@ -30,7 +30,12 @@ BOOT_SECURITY_PATCH = $(PLATFORM_SECURITY_PATCH)
 endif
 
 BOARD_RAMDISK_USE_LZ4 := true
--include $(QCPATH)/common/bengal/BoardConfigVendor.mk
+-include $(QCPATH)/common/bengal_32go/BoardConfigVendor.mk
+
+USE_OPENGL_RENDERER := true
+USESECTOOLV2 := true
+
+SECTOOLS_SECURITY_PROFILE := $(QCPATH)/securemsm/security_profiles/divar_security_profile.xml $(QCPATH)/securemsm/security_profiles/kamorta_security_profile.xml
 
 USE_OPENGL_RENDERER := true
 
@@ -210,9 +215,6 @@ endif
 #Add non-hlos files to ota packages
 ADD_RADIO_FILES := true
 
-#Enable 64 bit compilation for DRM plugins
-TARGET_ENABLE_MEDIADRM_64 := true
-
 # Enable sensor multi HAL
 USE_SENSOR_MULTI_HAL := true
 
@@ -251,10 +253,10 @@ ifeq ($(TARGET_USES_QMAA), true)
 ifneq ($(TARGET_USES_QMAA_OVERRIDE_WLAN), true)
 include device/qcom/wlan/default/BoardConfigWlan.mk
 else
-include device/qcom/wlan/bengal/BoardConfigWlan.mk
+include device/qcom/wlan/bengal_32go/BoardConfigWlan.mk
 endif
 else
-include device/qcom/wlan/bengal/BoardConfigWlan.mk
+include device/qcom/wlan/bengal_32go/BoardConfigWlan.mk
 endif
 endif
 
