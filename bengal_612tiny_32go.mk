@@ -59,6 +59,7 @@ TARGET_ENABLE_SMCI_SYSLISTENER := true
 
 # 32bit support
 TARGET_USES_64_BIT_BINDER := true
+TARGET_DEFINES_MXR_CONFIG := true
 
 # For QSSI builds, we should skip building the system image. Instead we build the
 # "non-system" images (that we support).
